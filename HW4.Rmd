@@ -1,0 +1,19 @@
+---
+title: "HW4"
+author: "Vicki Hertzberg"
+date: "February 13, 2017"
+output: pdf_document
+---
+
+
+There are many diseases for which risk prediction indices have been developed. Search the literature for a paper that describes the development of such an index. Your assignment is to critique this index. Your critique should (at a minimum) address the following points:
+
+- What is the disease?
+- What are the predictor variables?
+- Are these appropriate, is anything significant left out?
+- Did the authors take the appropriate steps (test, train, validate)?
+- Did the authors perform an external validation?
+- What would you do differently from the authors?
+- Finally, if the index was originally proposed over 20 years ago, is its use still relevant in today's healthcare environment? If so, why? If not, why not? What would you change to meet today's challenges?
+
+Two pages, double spaced, name on the front, etc. 
