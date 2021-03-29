@@ -1,82 +1,113 @@
-\documentclass[10pt,ignorenonframetext,]{beamer}
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  12pt,
+  ignorenonframetext,
+]{beamer}
+\usepackage{pgfpages}
 \setbeamertemplate{caption}[numbered]
 \setbeamertemplate{caption label separator}{: }
 \setbeamercolor{caption name}{fg=normal text.fg}
 \beamertemplatenavigationsymbolsempty
+% Prevent slide breaks in the middle of a paragraph
+\widowpenalties 1 10000
+\raggedbottom
+\setbeamertemplate{part page}{
+  \centering
+  \begin{beamercolorbox}[sep=16pt,center]{part title}
+    \usebeamerfont{part title}\insertpart\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{section page}{
+  \centering
+  \begin{beamercolorbox}[sep=12pt,center]{part title}
+    \usebeamerfont{section title}\insertsection\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{subsection page}{
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center]{part title}
+    \usebeamerfont{subsection title}\insertsubsection\par
+  \end{beamercolorbox}
+}
+\AtBeginPart{
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \ifbibliography
+  \else
+    \frame{\sectionpage}
+  \fi
+}
+\AtBeginSubsection{
+  \frame{\subsectionpage}
+}
 \usepackage{lmodern}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
-\usepackage{fixltx2e} % provides \textsubscript
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\else % if luatex or xelatex
-\ifxetex
-\usepackage{mathspec}
-\else
-\usepackage{fontspec}
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-\defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
-\fi
-\usetheme{AnnArbor}
+\usetheme[]{AnnArbor}
 \usecolortheme{dolphin}
 \usefonttheme{structurebold}
-% use upquote if available, for straight quotes in verbatim environments
+% Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-% use microtype if available
-\IfFileExists{microtype.sty}{%
-\usepackage{microtype}
-\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Prediction},
+  pdfauthor={Vicki Hertzberg},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
 \newif\ifbibliography
-
-% Prevent slide breaks in the middle of a paragraph:
-\widowpenalties 1 10000
-\raggedbottom
-
-\AtBeginPart{
-\let\insertpartnumber\relax
-\let\partname\relax
-\frame{\partpage}
-}
-\AtBeginSection{
-\ifbibliography
-\else
-\let\insertsectionnumber\relax
-\let\sectionname\relax
-\frame{\sectionpage}
-\fi
-}
-\AtBeginSubsection{
-\let\insertsubsectionnumber\relax
-\let\subsectionname\relax
-\frame{\subsectionpage}
-}
-
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt plus 2pt minus 1pt}
-\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
-\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{0}
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
 
-\title{Lecture 6}
-\subtitle{Prediction}
+\title{Prediction}
 \author{Vicki Hertzberg}
-\date{15 February 2017}
+\date{31 March 2021}
 
 \begin{document}
 \frame{\titlepage}
 
 \begin{frame}
-\tableofcontents[hideallsubsections]
+  \tableofcontents[hideallsubsections]
 \end{frame}
+\hypertarget{prediction}{%
+\section{Prediction}\label{prediction}}
 
-\section{Prediction}\label{prediction}
-
-\subsection{Models}\label{models}
+\hypertarget{models}{%
+\subsection{Models}\label{models}}
 
 \begin{frame}{Generalized Linear Models}
+\protect\hypertarget{generalized-linear-models}{}
 
 Many variables have distributions that are consistent with an
 \textcolor{orange}{exponential family.}
@@ -87,7 +118,6 @@ Many variables have distributions that are consistent with an
 Examples are
 
 \begin{enumerate}[<+->]
-\def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
   Normal:
@@ -101,16 +131,16 @@ Examples are
 \end{frame}
 
 \begin{frame}{Generalized Linear Models}
+\protect\hypertarget{generalized-linear-models-1}{}
 
 Note that for these distributions we have the following:
 
 \begin{enumerate}[<+->]
-\def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
   Normal: \(E(Y) = \mu\)
 \item
-  Bernooli: \(E(Y) = \pi\)
+  Bernoulli: \(E(Y) = \pi\)
 \item
   Exponential: \(E(Y)=\lambda^{-1}\)
 \end{enumerate}
@@ -118,6 +148,7 @@ Note that for these distributions we have the following:
 \end{frame}
 
 \begin{frame}{Generalized Linear Model}
+\protect\hypertarget{generalized-linear-model}{}
 
 For the exponential family we can say \(E(Y) = A(\theta)\)
 
@@ -131,11 +162,11 @@ If we extend the concept of regression to this, we can create a
 \end{frame}
 
 \begin{frame}{Generalized Linear Model}
+\protect\hypertarget{generalized-linear-model-1}{}
 
 The generalized linear model consists of three parts:
 
 \begin{enumerate}[<+->]
-\def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
   A \textcolor{orange}{probability function} from the exponential family
@@ -150,11 +181,11 @@ The generalized linear model consists of three parts:
 \end{frame}
 
 \begin{frame}{Generalized Linear Model}
+\protect\hypertarget{generalized-linear-model-2}{}
 
 For the simple linear regression case we have:
 
 \begin{enumerate}[<+->]
-\def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
   The \textcolor{orange}{probability function} is a normal distribution
@@ -166,11 +197,11 @@ For the simple linear regression case we have:
 \end{frame}
 
 \begin{frame}{Generalized Linear Model}
+\protect\hypertarget{generalized-linear-model-3}{}
 
 For \emph{logistic regression} we have:
 
 \begin{enumerate}[<+->]
-\def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
   The \textcolor{orange}{probability function} is a Bernoulli
@@ -183,11 +214,11 @@ For \emph{logistic regression} we have:
 \end{frame}
 
 \begin{frame}{Generalized Linear Model}
+\protect\hypertarget{generalized-linear-model-4}{}
 
 For \emph{time to event} we have
 
 \begin{enumerate}[<+->]
-\def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
   The \textcolor{orange}{probability function} is an exponential
@@ -199,9 +230,11 @@ For \emph{time to event} we have
 
 \end{frame}
 
-\subsection{Explaining v Predicting}\label{explaining-v-predicting}
+\hypertarget{explaining-v-predicting}{%
+\subsection{Explaining v Predicting}\label{explaining-v-predicting}}
 
 \begin{frame}{What do we mean by Explaining?}
+\protect\hypertarget{what-do-we-mean-by-explaining}{}
 
 We postulate the \(\mathcal{X}\) causes \(\mathcal{Y}\) via a function
 \(\mathcal{F}\). We operationalize this as a statistical model,
@@ -218,6 +251,7 @@ Goal: to have adequate power and minimal bias in order to match \(f\) to
 \end{frame}
 
 \begin{frame}{What do we mean by Predicting?}
+\protect\hypertarget{what-do-we-mean-by-predicting}{}
 
 \(E(y)=f(\boldsymbol{X})\), \(f\in\mathcal{F}\)
 
@@ -233,11 +267,11 @@ Goal: to use \(f\) to generate new \(Y\) values.
 \end{frame}
 
 \begin{frame}{What difference does it make?}
+\protect\hypertarget{what-difference-does-it-make}{}
 
 Explaining:
 
 \begin{enumerate}[<+->]
-\def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
   \(f\) represents the causal relationship between \(\boldsymbol{X}\)
@@ -253,11 +287,11 @@ Explaining:
 \end{frame}
 
 \begin{frame}{What difference does it make?}
+\protect\hypertarget{what-difference-does-it-make-1}{}
 
 Predicting
 
 \begin{enumerate}[<+->]
-\def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
   \(f\) captures the \emph{association} between \(\boldsymbol{X}\) and
@@ -274,11 +308,10 @@ Predicting
 \end{frame}
 
 \begin{frame}{What difference does it make?}
+\protect\hypertarget{what-difference-does-it-make-2}{}
 
-Finally, consider the xpected predicted error for a new observation at
-value \(x\) with a quadratic loss function:
-
-\begin{align}
+Finally, consider the expected predicted error for a new observation at
+value \(x\) with a quadratic loss function: \begin{align}
 EPE &= E(Y-\hat{f}(x))^2\\
     &= E(Y-f(x))^2 - [E(\hat{f}(x))-f(x)]^2 + E(\hat{f}(x)-E(\hat{f}(x)))^2\\
     &= Var(Y) + Bias^2 + Var(\hat{f}(x))
@@ -292,6 +325,7 @@ estimated.
 \end{frame}
 
 \begin{frame}{What difference does it make?}
+\protect\hypertarget{what-difference-does-it-make-3}{}
 
 Explaining: focus is on minimizing bias
 
@@ -303,14 +337,15 @@ one.
 
 \end{frame}
 
-\section{Metrics}\label{metrics}
+\hypertarget{metrics}{%
+\section{Metrics}\label{metrics}}
 
 \begin{frame}{Metrics for explanatory models}
+\protect\hypertarget{metrics-for-explanatory-models}{}
 
 Focus: estimated strength of relationship
 
 \begin{enumerate}[<+->]
-\def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
   \(R^2\)
@@ -321,6 +356,7 @@ Focus: estimated strength of relationship
 \end{frame}
 
 \begin{frame}{Metrics for predictive models}
+\protect\hypertarget{metrics-for-predictive-models}{}
 
 Focus: predictive accuracy / predictive power (performance of
 \(\hat{f}\) on new data)
@@ -329,7 +365,6 @@ Validate model with a \emph{new} dataset, typically by performing
 cross-validation.
 
 \begin{enumerate}[<+->]
-\def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
   Divide data into 10 parts.
@@ -349,12 +384,15 @@ cross-validation.
 
 \end{frame}
 
-\section{Practicalities}\label{practicalities}
+\hypertarget{practicalities}{%
+\section{Practicalities}\label{practicalities}}
 
+\hypertarget{for-better-clinical-prediction-models}{%
 \subsection{For better clinical prediction
-models}\label{for-better-clinical-prediction-models}
+models}\label{for-better-clinical-prediction-models}}
 
 \begin{frame}{Seven Steps for Development}
+\protect\hypertarget{seven-steps-for-development}{}
 
 Step 1: What is the research question and what do the data look like?
 
@@ -372,10 +410,12 @@ Step 7: Model presentation
 
 \end{frame}
 
+\hypertarget{seven-steps-for-model-development}{%
 \subsection{Seven Steps for Model
-Development}\label{seven-steps-for-model-development}
+Development}\label{seven-steps-for-model-development}}
 
 \begin{frame}{Step 1: Problem definition and data inspection}
+\protect\hypertarget{step-1-problem-definition-and-data-inspection}{}
 
 What factors predict the endpoint?
 
@@ -384,7 +424,6 @@ What is the risk of the endpoint given a combination of factors?
 Endpoint examples:
 
 \begin{enumerate}[<+->]
-\def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
   Functional rating
@@ -397,6 +436,7 @@ Endpoint examples:
 \end{frame}
 
 \begin{frame}{Step 1: Problem definition and data inspection}
+\protect\hypertarget{step-1-problem-definition-and-data-inspection-1}{}
 
 What is already known about the predictors?
 
@@ -405,12 +445,14 @@ Need close collaborations between the clinicians and the statisticians.
 \end{frame}
 
 \begin{frame}{Step 1: Problem definition and data inspection}
+\protect\hypertarget{step-1-problem-definition-and-data-inspection-2}{}
 
 How were patients selected?
 
 \end{frame}
 
 \begin{frame}{Step 1: Problem definition and data inspection}
+\protect\hypertarget{step-1-problem-definition-and-data-inspection-3}{}
 
 How to deal with treatment effects?
 
@@ -419,6 +461,7 @@ Include only the placebo group
 \end{frame}
 
 \begin{frame}{Step 1: Problem definition and data inspection}
+\protect\hypertarget{step-1-problem-definition-and-data-inspection-4}{}
 
 Were the predictors reliably and completely measured?
 
@@ -427,6 +470,7 @@ Missing data
 \end{frame}
 
 \begin{frame}{Step 1: Problem definition and data inspection}
+\protect\hypertarget{step-1-problem-definition-and-data-inspection-5}{}
 
 Is the endpoint of interest?
 
@@ -435,6 +479,7 @@ Preference for hard endpoints.
 \end{frame}
 
 \begin{frame}{Step 2: Coding of predictors}
+\protect\hypertarget{step-2-coding-of-predictors}{}
 
 Categorical variables: collapse categories with infrequent occurrence
 
@@ -448,6 +493,7 @@ information.
 \end{frame}
 
 \begin{frame}{Step 3: Model specification}
+\protect\hypertarget{step-3-model-specification}{}
 
 How to choose? Stepwise procedures can perform poorly in small datasets.
 
@@ -456,6 +502,7 @@ Additivity association? Choice of interaction terms.
 \end{frame}
 
 \begin{frame}{Step 3: Model specification}
+\protect\hypertarget{step-3-model-specification-1}{}
 
 Tradeoff between
 
@@ -464,6 +511,7 @@ Simple robust model Finely-tuned model with many independent variables
 \end{frame}
 
 \begin{frame}{Step 4: Model estimation}
+\protect\hypertarget{step-4-model-estimation}{}
 
 How to estimate those regression coefficients?
 
@@ -473,6 +521,7 @@ estimation
 \end{frame}
 
 \begin{frame}{Step 4: Model estimation}
+\protect\hypertarget{step-4-model-estimation-1}{}
 
 Model may be overfitted, and need to ``shrink'' the regression
 coefficients towards zero, as they are typically too optimistic.
@@ -488,6 +537,7 @@ just recognize that is what they are doing.
 \end{frame}
 
 \begin{frame}{Step 5: Model Performance}
+\protect\hypertarget{step-5-model-performance}{}
 
 Assess with some of the measures mentioned previously
 
@@ -508,6 +558,7 @@ Assess with some of the measures mentioned previously
 \end{frame}
 
 \begin{frame}{Step 6: Model Validity}
+\protect\hypertarget{step-6-model-validity}{}
 
 Internal validity: Validity of claims for the underlying population from
 which the data originated (reproducibility)
@@ -533,6 +584,7 @@ Looking at predictive ability for
 \end{frame}
 
 \begin{frame}{Step 7: Model presentation}
+\protect\hypertarget{step-7-model-presentation}{}
 
 Possibilities include:
 
@@ -550,10 +602,12 @@ Possibilities include:
 
 \end{frame}
 
+\hypertarget{for-better-clinical-prediction-models-1}{%
 \subsection{For better clinical prediction
-models}\label{for-better-clinical-prediction-models-1}
+models}\label{for-better-clinical-prediction-models-1}}
 
 \begin{frame}{ABCD's of model validation}
+\protect\hypertarget{abcds-of-model-validation}{}
 
 Four key measures in assessing validity of prediction models, related to
 calibration, discrimination, and clinical usefulness.
@@ -572,10 +626,12 @@ calibration, discrimination, and clinical usefulness.
 
 \end{frame}
 
+\hypertarget{abcds-of-model-validation-1}{%
 \subsection{ABCD's of Model
-Validation}\label{abcds-of-model-validation-1}
+Validation}\label{abcds-of-model-validation-1}}
 
 \begin{frame}{Alpha: Calibration in the Large}
+\protect\hypertarget{alpha-calibration-in-the-large}{}
 
 Calibration: agreement between observed and predicted, which is assessed
 graphically by plotting predicted (x-axis) v observed (y-axis)
@@ -585,6 +641,7 @@ Alpha: Compare mean of all predicted to mean of all observed
 \end{frame}
 
 \begin{frame}{Beta: Calibration Slope}
+\protect\hypertarget{beta-calibration-slope}{}
 
 The calibration slope \(\beta\) is often estimated as smaller than 1 in
 a (relatively) small dataset.
@@ -595,6 +652,7 @@ external validation
 \end{frame}
 
 \begin{frame}{Concordance statistic: Discrimination}
+\protect\hypertarget{concordance-statistic-discrimination}{}
 
 Discrimination: ability of the model to distinguish between a patient
 with an endpoint and one without the endpoint.
@@ -608,6 +666,7 @@ concordance statistic, \(c\), is measured by the AUC.
 \end{frame}
 
 \begin{frame}{Decision curve analysis}
+\protect\hypertarget{decision-curve-analysis}{}
 
 Decision curve balances those with high risk to those with low risk.
 
@@ -623,9 +682,14 @@ Once a cutpoint has been chosen, summary measures include
 
 \end{frame}
 
-\section{Prediction}\label{prediction-1}
+\hypertarget{prediction-1}{%
+\section{Prediction}\label{prediction-1}}
 
-\begin{frame}{Summary}
+\hypertarget{summary}{%
+\subsection{Summary}\label{summary}}
+
+\begin{frame}{Moral of the Story}
+\protect\hypertarget{moral-of-the-story}{}
 
 Models are ``easy'' to develop (``just'' involve computer)
 

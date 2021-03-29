@@ -1,9 +1,8 @@
 ---
-title: Lecture 6
-subtitle:  Prediction
+title: Prediction
 author: Vicki Hertzberg
-date: 15 February 2017
-fontsize: 10pt
+date: 31 March 2021
+fontsize: 12pt
 output:
   beamer_presentation:
     keep_tex: true
@@ -34,7 +33,7 @@ Examples are
 Note that for these distributions we have the following:
 
 1. Normal: $E(Y) = \mu$
-2. Bernooli: $E(Y) = \pi$
+2. Bernoulli: $E(Y) = \pi$
 3. Exponential: $E(Y)=\lambda^{-1}$
 
 ### Generalized Linear Model
@@ -114,7 +113,7 @@ Predicting
 
 ### What difference does it make?
 
-Finally, consider the xpected predicted error for a new observation at value $x$ with a quadratic loss function:
+Finally, consider the expected predicted error for a new observation at value $x$ with a quadratic loss function:
 \begin{align}
 EPE &= E(Y-\hat{f}(x))^2\\
     &= E(Y-f(x))^2 - [E(\hat{f}(x))-f(x)]^2 + E(\hat{f}(x)-E(\hat{f}(x)))^2\\
@@ -336,8 +335,10 @@ Once a cutpoint has been chosen, summary measures include
 - Sum of sensitivity and 1-specificity (naive)
 - Netbenefit: weighted sum of true- minus false-positives.
 
-#Prediction
-### Summary
+
+# Prediction
+## Summary
+### Moral of the Story
 
 Models are "easy" to develop ("just" involve computer)
 
